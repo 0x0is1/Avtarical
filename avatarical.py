@@ -38,7 +38,7 @@ def help_embed():
 
 def invite_embed():
     embed = discord.Embed(title='Avtarical bot invite',
-                          url='https://discord.com/api/oauth2/authorize?client_id=757685102183448709&permissions=26688&scope=bot',
+                          url='https://discord.com/api/oauth2/authorize?client_id=781976006264750161&permissions=18432&scope=bot',
                           description='Invite avtarical bot on your server.')
     return embed
 
