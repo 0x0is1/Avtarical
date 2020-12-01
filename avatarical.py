@@ -8,7 +8,11 @@ cookies = {
     '_ga': 'GA1.2.735792174.1600309507',
     'locale': 'en-US',
 }
-at = os.environ.get('USER_TOKEN')
+
+try:
+    at = os.environ.get('USER_TOKEN')
+except Exception:
+    at = os.environ.get('AVATARICAL_BOT_TOKEN')
 
 headers = {
     'Host': 'discord.com',
@@ -72,9 +76,11 @@ async def ping(ctx):
 
 
 @bot.command()
-async def pfp(ctx, user_id=1, quality=1024):
-    if user_id == 1:
+async def pfp(ctx, user_id=None, quality=1024):
+    if user_id == None:
         user_id = ctx.message.author.id
+    if '!' in str(user_id):
+        user_id = int(user_id.split('!')[1].split('>')[0])
     response = get_pfp(user_id).decode('utf-8')
     jdata = json.loads(response)
     try:
@@ -85,9 +91,11 @@ async def pfp(ctx, user_id=1, quality=1024):
             str(user_id) + '/' + av + '.webp?size=' + str(quality)
         await ctx.send(link)
         await ctx.send('Username: {}'.format(username))
-    except Exception:
-        await ctx.send("The user id might be wrong or they don't have pfp. you have to type `.pfp <USER_ID HERE>` to get an user's pfp.")
-
-
+    except KeyError:
+        try:
+            user = await bot.fetch_user(user_id)
+            await ctx.send(user.avatar_url)
+        except Exception:
+            await ctx.send("The user id might be wrong or they don't have pfp. you have to type `.pfp <USER_ID HERE>` to get an user's pfp.")
 auth_token = os.environ.get('AVATARICAL_BOT_TOKEN')
 bot.run(auth_token)
