@@ -91,6 +91,9 @@ async def pfp(ctx, user_id=None, quality=1024):
             str(user_id) + '/' + av + '.webp?size=' + str(quality)
         await ctx.send(link)
         await ctx.send('Username: {}'.format(username))
+    except TypeError:
+        await ctx.send("The user id might be wrong or they don't have pfp. you have to type `.pfp <USER_ID HERE>` to get an user's pfp.")
+
     except KeyError:
         try:
             user = await bot.fetch_user(user_id)
