@@ -97,5 +97,8 @@ async def pfp(ctx, user_id=None, quality=1024):
             await ctx.send(user.avatar_url)
         except Exception:
             await ctx.send("The user id might be wrong or they don't have pfp. you have to type `.pfp <USER_ID HERE>` to get an user's pfp.")
+    except Exception:
+        await ctx.send("The user id might be wrong or they don't have pfp. you have to type `.pfp <USER_ID HERE>` to get an user's pfp.")
+
 auth_token = os.environ.get('AVATARICAL_BOT_TOKEN')
 bot.run(auth_token)
