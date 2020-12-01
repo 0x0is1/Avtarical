@@ -105,3 +105,5 @@ async def pfp(ctx, user_id=None, quality=1024):
 
 auth_token = os.environ.get('AVATARICAL_BOT_TOKEN')
 bot.run(auth_token)
+
+# comment
