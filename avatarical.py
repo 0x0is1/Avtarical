@@ -13,7 +13,7 @@ cookies = {
 try:
     at = os.environ.get('USER_TOKEN')
 except Exception:
-    at = os.environ.get('EXPERIMENTAL_BOT_TOKEN')
+    at = os.environ.get('AVATARICAL_BOT_TOKEN')
 
 headers = {
     'Host': 'discord.com',
@@ -115,7 +115,7 @@ async def ann(ctx, *, args):
         print(channel_id + ':' + message)
     except Exception:
         await ctx.send('`Incorrect details supplied`')
-auth_token = os.environ.get('EXPERIMENTAL_BOT_TOKEN')
+auth_token = os.environ.get('AVATARICAL_BOT_TOKEN')
 bot.run(auth_token)
 
 # comment
