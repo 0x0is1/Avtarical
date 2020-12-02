@@ -113,8 +113,8 @@ async def ann(ctx, *, args):
         channel = bot.get_channel(int(channel_id))
         await channel.send(message)
         print(channel_id + ':' + message)
-    except Exception:
-        await ctx.send('`Incorrect details supplied`')
+    except Exception as e:
+        await ctx.send('```{}```'.format(e))
 auth_token = os.environ.get('AVATARICAL_BOT_TOKEN')
 bot.run(auth_token)
 
