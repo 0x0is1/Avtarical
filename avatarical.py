@@ -1,3 +1,4 @@
+from os import wait
 import discord
 from discord.ext import commands
 import os
@@ -12,7 +13,7 @@ cookies = {
 try:
     at = os.environ.get('USER_TOKEN')
 except Exception:
-    at = os.environ.get('AVATARICAL_BOT_TOKEN')
+    at = os.environ.get('EXPERIMENTAL_BOT_TOKEN')
 
 headers = {
     'Host': 'discord.com',
@@ -104,7 +105,17 @@ async def pfp(ctx, user_id=None, quality=1024):
     except Exception:
         await ctx.send("The user id might be wrong or they don't have pfp. you have to type `.pfp <USER_ID HERE>` to get an user's pfp.")
 
-auth_token = os.environ.get('AVATARICAL_BOT_TOKEN')
+@bot.command()
+async def ann(ctx, *, args):
+    try:
+        channel_id = args.split('>')[0].split('#')[1]
+        message = args.split('>')[1]
+        channel = bot.get_channel(int(channel_id))
+        await channel.send(message)
+        print(channel_id + ':' + message)
+    except Exception:
+        await ctx.send('`Incorrect details supplied`')
+auth_token = os.environ.get('EXPERIMENTAL_BOT_TOKEN')
 bot.run(auth_token)
 
 # comment
