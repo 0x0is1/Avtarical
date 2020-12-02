@@ -87,8 +87,9 @@ async def pfp(ctx, user_id=None, quality=1024):
         username = jdata['user']['username'] + \
             '#' + jdata['user']['discriminator']
         av = jdata['user']['avatar']
-        link = 'https://cdn.discordapp.com/avatars/' + \
-            str(user_id) + '/' + av + '.webp?size=' + str(quality)
+        link = 'https://cdn.discordapp.com/avatars/' + str(user_id) + '/' + av + '.gif?size=' + str(quality)
+        if requests.get(link).status_code == 415:
+            link = 'https://cdn.discordapp.com/avatars/' + str(user_id) + '/' + av + '.webp?size=' + str(quality)
         await ctx.send(link)
         await ctx.send('Username: {}'.format(username))
     except TypeError:
