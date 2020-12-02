@@ -1,7 +1,7 @@
-from os import wait
 import discord
 from discord.ext import commands
 import os
+from discord.ext.commands.errors import MissingPermissions
 import requests
 import json
 
@@ -106,6 +106,7 @@ async def pfp(ctx, user_id=None, quality=1024):
         await ctx.send("The user id might be wrong or they don't have pfp. you have to type `.pfp <USER_ID HERE>` to get an user's pfp.")
 
 @bot.command()
+@commands.has_permissions(manage_channels=True)
 async def ann(ctx, *, args):
     try:
         channel_id = args.split('>')[0].split('#')[1]
@@ -113,8 +114,12 @@ async def ann(ctx, *, args):
         channel = bot.get_channel(int(channel_id))
         await channel.send(message)
         print(channel_id + ':' + message)
-    except Exception as e:
-        await ctx.send('```{}```'.format(e))
+    except Exception:
+        await ctx.send('`Incorrect details supplied`')
+@ann.error
+async def ann_error(error, ctx): 
+    if isinstance(error, MissingPermissions): 
+        await ctx.send(f'Sorry {ctx.author.mention}, you do not have permissions to do that!')
 auth_token = os.environ.get('AVATARICAL_BOT_TOKEN')
 bot.run(auth_token)
 
